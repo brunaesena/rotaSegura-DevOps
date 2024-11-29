@@ -18,7 +18,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Automated PR from dev to staging"
-          branch: dev
-          base: staging
+          branch: create-pr-from-dev  # Nome do branch temporário
+          base: staging               # Branch de destino do PR
           title: "Sync dev with staging"
           body: "Automated pull request to merge dev into staging"
