@@ -13,12 +13,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Configure Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check remote URL
+        run: git remote -v
+
       - name: Create Pull Request from dev to staging
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Automated PR from dev to staging"
-          branch: dev
+          branch: "dev-to-staging-${{ github.run_id }}"  # Nome dinâmico da branch
           base: staging
           title: "Sync dev with staging"
           body: "Automated pull request to merge dev into staging"
