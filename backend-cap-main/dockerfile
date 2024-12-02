@@ -10,8 +10,19 @@ COPY package*.json ./
 # Instale as dependências do projeto
 RUN npm install
 
+# Instale o Prisma (caso não esteja no package.json)
+RUN npm install prisma --save-dev
+RUN npm install @prisma/client
+
+#Instale o MongoDB
+
+RUN npm install mongodb
+
 # Copie o restante dos arquivos do backend para o contêiner
 COPY . .
+
+# Gere o cliente Prisma (isso deve ser feito após a instalação das dependências)
+RUN npx prisma generate
 
 # Exponha a porta que o backend usa
 EXPOSE 3000
